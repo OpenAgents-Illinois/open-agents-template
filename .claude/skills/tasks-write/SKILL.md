@@ -58,6 +58,11 @@ Claude should only complete **one task at a time** and should not attempt to imp
 
 Each task should leave the application in a **runnable state**.
 
+After completing each task:
+1. Write and run tests if applicable
+2. Run the implementation to verify it works
+3. Ask the user if they want to commit before moving on
+
 ---
 
 # Phase <N> — <Phase Name>
@@ -76,6 +81,14 @@ Expected outcomes:
 - <outcome 1>
 - <outcome 2>
 
+Tests:
+
+- <test or verification step 1 — use the project's test command (e.g. the test runner, a curl, a build check)>
+- <test or verification step 2>
+- If no automated tests apply, describe a manual verification step instead
+
+> After completing this task: run the tests above, verify all expected outcomes, then ask the user: "Ready to commit Task <N.M> — <Task Name>?"
+
 ---
 ```
 
@@ -90,6 +103,19 @@ Repeat for each task within each phase.
   - Add new tasks at the appropriate phase
   - Update tasks whose requirements have changed
   - Do not delete completed tasks — mark them `[DONE]` instead if the user asks
+
+---
+
+## Execution Workflow (when implementing tasks)
+
+When executing tasks from a generated TASKS.md, follow this loop for every task:
+
+1. **Implement** — complete all requirements for the task
+2. **Test** — write tests if applicable, then run the Tests steps listed in the task
+3. **Verify** — confirm all expected outcomes are met
+4. **Commit checkpoint** — ask the user: "Ready to commit Task <N.M> — <Task Name>?" before moving to the next task
+
+Never proceed to the next task without this confirmation step.
 
 ---
 
